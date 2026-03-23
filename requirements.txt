@@ -1,0 +1,30 @@
+# Web Framework
+fastapi
+uvicorn[standard]
+
+# Environment
+python-dotenv
+
+# AWS S3
+boto3
+
+# MongoDB
+pymongo
+motor
+
+# AI & Embeddings
+langchain
+langchain-community
+langchain-text-splitters
+langchain-google-genai
+langchain-pinecone
+langchain-core
+
+# PDF Processing
+pypdf
+
+# Vector DB
+pinecone
+
+# Utilities
+python-multipart
