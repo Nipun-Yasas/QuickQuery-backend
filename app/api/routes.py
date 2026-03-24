@@ -1,6 +1,7 @@
 from fastapi import APIRouter, UploadFile, File
+from pydantic import BaseModel
 from app.services.s3_service import upload_file_to_s3
-from app.services.rag_service import index_document_to_pinecone
+from app.services.rag_service import index_document_to_pinecone, query_document
 
 router = APIRouter()
 
@@ -21,4 +22,19 @@ async def upload_document(file: UploadFile = File(...)):
         "status": "success",
         "s3_url": s3_url,
         "message": "Document indexed and stored."
+    }
+
+# 3. Model for asking a question
+class QueryRequest(BaseModel):
+    user_id: str
+    question: str
+
+@router.post("/query")
+async def ask_question(request: QueryRequest):
+    # Retrieve the answer using our RAG service
+    answer = query_document(request.question, request.user_id)
+    
+    return {
+        "status": "success",
+        "answer": answer
     }
